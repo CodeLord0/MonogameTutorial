@@ -1,0 +1,5 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"/home/tristan/Documents/MonogameTutorial/MonogameTutorial/Content/crosshairs.png","/home/tristan/Documents/MonogameTutorial/MonogameTutorial/Content/bin/DesktopGL/crosshairs.xnb","TextureProcessor","Texture2DContent",1892,10085,0.320761
+"/home/tristan/Documents/MonogameTutorial/MonogameTutorial/Content/galleryFont.spritefont","/home/tristan/Documents/MonogameTutorial/MonogameTutorial/Content/bin/DesktopGL/galleryFont.xnb","FontDescriptionProcessor","SpriteFontContent",2067,70681,0.3321038
+"/home/tristan/Documents/MonogameTutorial/MonogameTutorial/Content/sky.png","/home/tristan/Documents/MonogameTutorial/MonogameTutorial/Content/bin/DesktopGL/sky.xnb","TextureProcessor","Texture2DContent",1079607,9216085,0.9573935
+"/home/tristan/Documents/MonogameTutorial/MonogameTutorial/Content/target.png","/home/tristan/Documents/MonogameTutorial/MonogameTutorial/Content/bin/DesktopGL/target.xnb","TextureProcessor","Texture2DContent",3395,32485,0.0088518
