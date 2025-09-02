@@ -1,0 +1,15 @@
+# Build output
+bin/
+obj/
+
+# User/IDE files
+*.user
+*.suo
+*.cache
+*.log
+
+# VS Code
+.vscode/
+
+# JetBrains Rider / IntelliJ
+.idea/
