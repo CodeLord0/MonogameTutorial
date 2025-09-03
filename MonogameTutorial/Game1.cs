@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using System.Xml;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -20,6 +21,8 @@ public class Game1 : Game
     MouseState mstate;
     int score;
     bool mReleased = true;
+    float timer = 10f;
+
     
     //int screenWidth = GraphicsDevice.Viewport.Width;
 
@@ -29,12 +32,14 @@ public class Game1 : Game
     {
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
-        IsMouseVisible = true;
+        IsMouseVisible = false;
     }
 
     protected override void Initialize()
     {
         // TODO: Add your initialization logic here
+        _graphics.IsFullScreen = true;
+        _graphics.ApplyChanges();
 
         base.Initialize();
     }
@@ -52,7 +57,16 @@ public class Game1 : Game
 
     protected override void Update(GameTime gameTime)
     {
-        Mouse.SetCursor(MouseCursor.FromTexture2D(crosshairSprite, 0, 0));
+
+        if (timer > 0)
+        {
+            timer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (timer < 0) timer = 0;
+        }
+   
+
+
+        //Mouse.SetCursor(MouseCursor.FromTexture2D(crosshairSprite, 0, 0));
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
@@ -60,10 +74,10 @@ public class Game1 : Game
         mstate = Mouse.GetState();
         if (mstate.LeftButton == ButtonState.Pressed && mReleased == true)
         {
-            float mouseDistance = Vector2.Distance(targetPosition,mstate.Position.ToVector2());
-            System.Console.WriteLine(Vector2.Distance(targetPosition,mstate.Position.ToVector2()));
 
-            if (mouseDistance < targetRaidus)
+            float mouseDistance = Vector2.Distance(targetPosition,mstate.Position.ToVector2());
+            
+            if (mouseDistance < targetRaidus && timer > 0)
             {
                 score++;
                 Random rand = new Random();
@@ -79,10 +93,6 @@ public class Game1 : Game
             mReleased = true;
         }
         
-        
-
-
-
         base.Update(gameTime);
     }
 
@@ -93,9 +103,14 @@ public class Game1 : Game
         // TODO: Add your drawing code here
         _spriteBatch.Begin();
         _spriteBatch.Draw(backgroundSprite, new Vector2(0, 0), Color.White);
-        _spriteBatch.Draw(targetSprite, new Vector2(targetPosition.X- targetRaidus,targetPosition.Y-targetRaidus), Color.White);
-        _spriteBatch.DrawString(gameFont, score.ToString(),new Vector2(00,200),Color.Beige);
-        //_spriteBatch.Draw(crosshairSprite)
+        if (timer > 0)
+        {
+            _spriteBatch.Draw(targetSprite, new Vector2(targetPosition.X- targetRaidus,targetPosition.Y-targetRaidus), Color.White);
+        }
+        
+        _spriteBatch.DrawString(gameFont, "Score: " + score.ToString(),new Vector2(3,3),Color.Beige);
+        _spriteBatch.DrawString(gameFont, "Time: " + Math.Ceiling(timer).ToString(),new Vector2(3,40),Color.White);
+        _spriteBatch.Draw(crosshairSprite, new Vector2(mstate.X -25, mstate.Y- 25), Color.White);
         _spriteBatch.End();
 
         base.Draw(gameTime);
